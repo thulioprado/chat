@@ -1,28 +1,28 @@
 (function() {
-    const outputDiv = document.getElementById('output');
+    const output = document.getElementById('output')
 
-    if (outputDiv) {
-        const callback = (mutationsList, observer) => {
-            mutationsList.forEach(mutation => {
+    if (output) {        
+        const observer = new MutationObserver(mutations => {
+            mutations.forEach(mutation => {
                 if (mutation.type === 'childList') {
                     mutation.addedNodes.forEach(node => {
-                        if (node.classList && node.classList.contains('highlight-chat')) {
-                            const nameElement = node.querySelector('.hl-name');                    
-                            if (nameElement) {
-                                const currentColor = nameElement.style.color;
-                                if (currentColor) {
-                                    nameElement.style.background = currentColor;
-                                    nameElement.style.color = 'white'; 
-                                }
+                        if (node.classList?.contains('highlight-chat')) {
+                            const name = node.querySelector('.hl-name')
+
+                            if (name) {
+                                name.innerHTML = name.innerHTML.replace(':', '')
+                                name.style.background = name.style.color
+                                name.style.color = 'white'
                             }
                         }
-                    });
+                    })
                 }
-            });
-        };
-        
-        const observer = new MutationObserver(callback);
-        const config = { childList: true, subtree: true };
-        observer.observe(outputDiv, config);
+            })
+        })
+
+        observer.observe(output, { 
+            childList: true, 
+            subtree: true 
+        })
     }
-})();
+})()
