@@ -1,4 +1,4 @@
-const outputDiv = document.getElementById('output');
+const outputDiv = getById('output');
 
 const callback = (mutationsList, observer) => {
     mutationsList.forEach(mutation => {
